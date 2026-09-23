@@ -1,0 +1,27 @@
+{
+  "source_code_commit": "da776a0bd3a48c6df83ac2ae0e27b26141cc7e31",
+  "model_repo": "Pointcept/Utonia",
+  "model_revision": "fb39b40d33d215d29d1d4717ffb86287f4700c4d",
+  "files": {
+    "checkpoints/utonia.pth": {
+      "sha256": "a0a2e5e234ce943082ae9ba26bcff74e285f16ed8d04fed5c36ffe8dc30ea353",
+      "bytes": 549168522,
+      "hash_source": "Hugging Face X-Linked-ETag"
+    },
+    "checkpoints/utonia_linear_prob_head_sc.pth": {
+      "sha256": "8e687f3961b81d374df88024c43f676352f16e4128b9124ad97ab213e111eabd",
+      "bytes": 112650,
+      "hash_source": "locally computed after download"
+    },
+    "data/sample1.npz": {
+      "sha256": "a01e32b2867e44703130a8685b6fd782944ca8f3d4c977f6a3d233e3e14774b8",
+      "bytes": 5472100,
+      "hash_source": "locally computed after download"
+    },
+    "wheels/flash_attn-2.7.4.post1+cu12torch2.5cxx11abiFALSE-cp310-cp310-linux_x86_64.whl": {
+      "sha256": "b267f80a08e516292cdd748056a2178a45b8abedf7fca123292eb17c21c8c87c",
+      "bytes": 187797312,
+      "hash_source": "locally computed after download"
+    }
+  }
+}

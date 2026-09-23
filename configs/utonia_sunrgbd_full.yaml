@@ -1,0 +1,68 @@
+experiment: utonia_sunrgbd_v1_multiscale
+seed: 37
+dataset:
+  name: SUNRGBD
+  processed_dir: /home/xcy/dabaset/SUNRGBD/processed_full_v1
+  annotation_version: v1
+  train_split: train
+  val_split: val
+  expected_train_scenes: 5285
+  expected_val_scenes: 5050
+  classes: [bed, table, sofa, chair, toilet, desk, dresser, night_stand, bookshelf, bathtub]
+  num_points: 20000
+  backbone_scale: 0.5
+  voxel_size: 0.01
+  empty_scene_policy: keep
+  workers_per_gpu: 2
+model:
+  checkpoint: checkpoints/utonia.pth
+  adapter_type: multiscale
+  feature_stages: [2, 3, 4]
+  feature_dimensions: [216, 432, 576]
+  dim: 192
+  layers: 3
+  attention_heads: 6
+  queries: 128
+  max_tokens: 1536
+  query_type: fps
+  position_encoding: xyz_fourier
+  box_parameterization: relative_center_softplus_size_double_angle
+augmentation:
+  flip_probability: 0.5
+  rotation_degrees: 30
+  scale_range: [0.85, 1.15]
+  brightness_range: [0.8, 1.2]
+  rgb_shift: 0.05
+  point_color_jitter: 0.025
+  color_dropout: 0.3
+loss:
+  weights: {class: 1.0, center: 5.0, size: 2.0, heading: 1.0, iou: 1.0}
+  matcher: {class: 2.0, center: 5.0, size: 2.0, heading: 0.5, giou: 1.0}
+  background_weight: 0.1
+  aux_weight: 0.3
+training:
+  ablation: A
+  epochs: 180
+  batch_size_per_gpu: 4
+  optimizer: AdamW
+  head_lr: 0.0001
+  backbone_lr: 0.00001
+  weight_decay: 0.0001
+  amp: true
+  amp_dtype: bfloat16
+  backbone_precision: float32
+  grad_clip: 1.0
+  warmup_steps: 100
+  min_lr_ratio: 0.05
+  scheduler: cosine
+evaluation:
+  classes: fixed10
+  thresholds: [0.25, 0.5]
+  score_threshold: 0.05
+  nms_iou: 0.25
+  per_class_proposals: true
+  remove_empty_boxes: true
+  min_points_in_box: 5
+logging:
+  every_steps: 25
+  tensorboard: true
